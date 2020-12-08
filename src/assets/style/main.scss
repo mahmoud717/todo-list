@@ -1,5 +1,15 @@
 @import "~bootstrap/scss/bootstrap";
 
+.main {
+  position: relative;
+  transition: 1s ease-in;
+}
+
+.dimmed {
+  opacity: 0.2;
+  transition: 0.4s ease-in-out;
+}
+
 .list-group {
   border-right: 1px solid rgb(194, 193, 193);
   height: 100vh;
@@ -16,7 +26,8 @@
     border-bottom: rgb(224, 224, 224) 1px solid;
   }
 
-  .todo, .create-todo-btn {
+  .todo,
+  .create-todo-btn {
     border-bottom: 1px solid rgb(224, 224, 224);
   }
 
@@ -30,5 +41,21 @@
     span {
       margin-right: 10px;
     }
+  }
+}
+
+.hovering-popup {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.4s ease-in-out;
+
+  .hover {
+    width: 300px;
+    height: 300px;
+    background-color: rgb(233, 233, 233);
+    border-radius: 15px;
   }
 }
