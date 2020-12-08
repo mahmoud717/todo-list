@@ -12,7 +12,6 @@
   "license": "ISC",
   "devDependencies": {
     "babel-eslint": "^10.1.0",
-    "bootstrap": "^4.3.1",
     "css-loader": "^2.1.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
@@ -37,7 +36,9 @@
     "webpack-merge": "^4.2.1"
   },
   "dependencies": {
-    "clean-webpack-plugin": "^2.0.0"
+    "clean-webpack-plugin": "^2.0.0",
+    "date-fns": "^2.16.1",
+    "bootstrap": "^4.3.1"
   },
   "repository": {
     "type": "git",

@@ -1,1 +1,34 @@
 @import "~bootstrap/scss/bootstrap";
+
+.list-group {
+  border-right: 1px solid rgb(194, 193, 193);
+  height: 100vh;
+}
+
+.todo-container {
+  max-height: 700px;
+  max-width: 850px;
+  border-radius: 3px;
+  border: 1px rgb(224, 224, 224) solid;
+  overflow-y: auto;
+
+  .todo-header {
+    border-bottom: rgb(224, 224, 224) 1px solid;
+  }
+
+  .todo {
+    border-bottom: 1px solid rgb(224, 224, 224);
+  }
+
+  .todo-right {
+    .fas {
+      background-color: white;
+      border: none;
+      padding: 0 2px;
+    }
+
+    span {
+      margin-right: 10px;
+    }
+  }
+}
