@@ -51,10 +51,11 @@
   justify-content: center;
   align-items: center;
   transition: all 0.4s ease-in-out;
+  z-index: 22;
 
   .hover {
-    width: 300px;
-    height: 300px;
+    width: 500px;
+    height: 400px;
     background-color: rgb(233, 233, 233);
     border-radius: 15px;
   }

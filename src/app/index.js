@@ -16,11 +16,28 @@ loadDefault();
       hoveringPopup.classList.remove("d-none")
       hoveringPopup.classList.add("d-flex")
       elMain.classList.add("dimmed")
-    }
-    else {
-      hoveringPopup.classList.remove("d-flex")
-      hoveringPopup.classList.add("d-none")
-      elMain.classList.remove("dimmed")
+      // const submitBtn = querySelector("button.todo-submit")
+      // const cancelBtn = querySelector("button.todo-cancel")
+      const todoActionBtns = document.querySelector(".todo-action-btns")
+      todoActionBtns.addEventListener("click", (e)=> {
+
+        if (e.target.classList.contains("todo-submit")){  
+          
+
+          hoveringPopup.classList.remove("d-flex")
+          hoveringPopup.classList.add("d-none")
+          elMain.classList.remove("dimmed")
+          var new_element = todoActionBtns.cloneNode(true);
+          todoActionBtns.parentNode.replaceChild(new_element, todoActionBtns);
+        }
+        else if( e.target.classList.contains("todo-cancel") ){
+          hoveringPopup.classList.remove("d-flex")
+          hoveringPopup.classList.add("d-none")
+          elMain.classList.remove("dimmed")
+          var new_element = todoActionBtns.cloneNode(true);
+          todoActionBtns.parentNode.replaceChild(new_element, todoActionBtns);
+        }
+      })
     }
     
   })
