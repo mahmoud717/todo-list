@@ -1,4 +1,3 @@
-import todo from './todo';
 
 export default class Project {
   constructor(name) {
@@ -50,7 +49,13 @@ export const showProjectTodo = (project) => {
     newTodo.appendChild(todoRight);
 
     newTodo.addEventListener('click', (e) => {
-
+      console.log(e.target);
+      if (e.target.classList.contains('edit-btn')) {
+        todo.todoEdit();
+      } else if (e.target.classList.contains('delete-btn')) {
+        console.log('delete');
+        todo.todoDelete(project, todo);
+      }
     });
 
     todoDisplay.appendChild(newTodo);
