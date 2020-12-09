@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/prefer-default-export
 export const loadDefault = () => {
   // create side bar
   const elMain = document.querySelector('main');
@@ -7,11 +8,11 @@ export const loadDefault = () => {
   projectDisplay.className = 'list-group project-display';
   const projectBtn = document.createElement('button');
   projectBtn.className = 'btn btn-primary btn-lg py-4 project-button';
-  projectBtn.innerText = 'Create a Project'
+  projectBtn.innerText = 'Create a Project';
   projectDisplay.appendChild(projectBtn);
   sideBar.appendChild(projectDisplay);
   elMain.appendChild(sideBar);
-  
+
   // create app container
   const appContainer = document.createElement('div');
   appContainer.className = 'app-container col-9 col-lg-10 p-5';
@@ -53,13 +54,14 @@ export const loadDefault = () => {
 
   createTodoBtn.appendChild(plusIcon);
   createTodoBtn.appendChild(addTodoText);
-  todoDisplay.appendChild(createTodoBtn);
-  
+
+
   todoContainer.appendChild(todoHeader);
+  todoContainer.appendChild(createTodoBtn);
   todoContainer.appendChild(todoDisplay);
 
   appContainer.appendChild(appTitle);
   appContainer.appendChild(todoContainer);
 
   elMain.appendChild(appContainer);
-}
+};
