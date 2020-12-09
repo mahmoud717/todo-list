@@ -15,6 +15,8 @@ export const createProject = (name, projects) => {
 };
 
 export const showProjectTodo = (project) => {
+  const todoProjectName = document.querySelector('.todo-project-name');
+  todoProjectName.innerText = project.name.charAt(0).toUpperCase() + project.name.slice(1);
   const todoDisplay = document.querySelector('.todo-display');
   todoDisplay.innerHTML = '';
   project.projectStore.forEach((todo) => {
@@ -25,6 +27,7 @@ export const showProjectTodo = (project) => {
     const todoCheck = document.createElement('input');
     todoCheck.type = 'checkbox';
     todoCheck.name = 'todo';
+    // todoCheck.addEventListener('check');
     const todoTitle = document.createElement('span');
     todoTitle.className = 'ml-2 p-0';
     todoTitle.innerText = todo.title;
@@ -49,12 +52,11 @@ export const showProjectTodo = (project) => {
     newTodo.appendChild(todoRight);
 
     newTodo.addEventListener('click', (e) => {
-      console.log(e.target);
       if (e.target.classList.contains('edit-btn')) {
-        todo.todoEdit();
+        todo.todoEdit(project, todo);
       } else if (e.target.classList.contains('delete-btn')) {
-        console.log('delete');
         todo.todoDelete(project, todo);
+        showProjectTodo(project);
       }
     });
 

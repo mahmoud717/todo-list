@@ -1,4 +1,4 @@
-import { projects } from './project';
+import { projects, showProjectTodo } from './project';
 import createTodo from './todo';
 
 export function createTodoPopup(projects) {
@@ -78,7 +78,6 @@ export function createTodoPopup(projects) {
 
   const todoActionBtns = document.createElement('div');
   todoActionBtns.className = 'text-center todo-action-btns';
-  console.log(todoActionBtns);
   const todoSubmitBtn = document.createElement('button');
   todoSubmitBtn.type = 'submit';
   todoSubmitBtn.className = 'btn btn-primary todo-submit';
@@ -109,17 +108,15 @@ export function removeTodoPopup() {
 
 export function addPopupListeners() {
   const todoActionBtns = document.querySelector('.todo-action-btns');
-  console.log(todoActionBtns);
   todoActionBtns.addEventListener('click', (e) => {
     const elMain = document.querySelector('main');
-    const hoveringPopup = document.querySelector('.hovering-popup-container');
     if (e.target.classList.contains('todo-submit')) {
       const todoTitle = document.querySelector('.hover form #todo-input');
       const todoDate = document.querySelector('.hover form #due-date-input');
       const todoProjectSelect = document.querySelector('.hover form .project-select');
       const todoPrioritySelect = document.querySelector('.hover form .priority-select');
       const getProject = (projectSelect, projects) => {
-        for (let i = 0; i < projects.length; i++) {
+        for (let i = 0; i < projects.length; i += 1) {
           if (projects[i].name === projectSelect) {
             return projects[i];
           }
@@ -128,6 +125,7 @@ export function addPopupListeners() {
       const newTodo = createTodo(getProject(todoProjectSelect.value, projects), todoTitle.value, '', todoDate.value, todoPrioritySelect.value);
       removeTodoPopup();
       elMain.classList.remove('dimmed');
+      showProjectTodo(getProject(todoProjectSelect.value, projects));
       const newElement = todoActionBtns.cloneNode(true);
       todoActionBtns.parentNode.replaceChild(newElement, todoActionBtns);
     } else if (e.target.classList.contains('todo-cancel')) {

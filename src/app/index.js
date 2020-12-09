@@ -11,8 +11,6 @@ TodoHover();
 
 const project1 = createProject('hello', projects);
 const project2 = createProject('there', projects);
-console.log(project1);
 const todo1 = createTodo(project1, 'hello', 'this is a todo', 'today', 'high');
 
 showProjects();
-console.log(todo1, project1, projects);

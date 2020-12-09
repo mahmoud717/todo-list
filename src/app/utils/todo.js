@@ -6,12 +6,12 @@ class Todo {
     this.priority = priority;
   }
 
-  todoDelete(project, todo) {
-    project.projectStore.splice((project.projectStore.indexOf(todo)), 1);
+  todoDelete(project) {
+    project.projectStore.splice((project.projectStore.indexOf(this)), 1);
   }
 
-  switchPriority() {
-    console.log(this);
+  todoDone() {
+
   }
 }
 
