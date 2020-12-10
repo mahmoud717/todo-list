@@ -4,12 +4,12 @@ export const loadDefault = () => {
   const elMain = document.querySelector('main');
   const sideBar = document.createElement('div');
   sideBar.className = 'side-bar col-3 col-lg-2 m-0 p-0';
+  const projectsHeader = document.createElement('h1');
+  projectsHeader.innerText = 'Projects';
+  projectsHeader.className = 'list-group-item py-4 projects-header';
   const projectDisplay = document.createElement('div');
   projectDisplay.className = 'list-group project-display';
-  const projectBtn = document.createElement('button');
-  projectBtn.className = 'btn btn-primary btn-lg py-4 project-button';
-  projectBtn.innerText = 'Create a Project';
-  projectDisplay.appendChild(projectBtn);
+  sideBar.appendChild(projectsHeader);
   sideBar.appendChild(projectDisplay);
   elMain.appendChild(sideBar);
 

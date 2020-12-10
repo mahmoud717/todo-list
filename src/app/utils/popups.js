@@ -1,7 +1,17 @@
-import { projects, showProjectTodo } from './project';
+import {
+  projects, showProjectTodo, showProjects, createProject,
+} from './project';
 import createTodo from './todo';
 
-export function createTodoPopup(projects) {
+function removePopup() {
+  const popup = document.querySelector('.hovering-popup-container');
+  popup.parentNode.removeChild(popup);
+}
+
+// todo popup
+
+
+function createTodoPopup(projects) {
   const body = document.querySelector('body');
   const hoveringPopup = document.createElement('div');
   hoveringPopup.className = 'hovering-popup-container p-5 d-flex';
@@ -38,12 +48,11 @@ export function createTodoPopup(projects) {
 
   const formSelect1 = document.createElement('div');
   formSelect1.className = 'mb-3';
+  const formSelect1Label = document.createElement('label');
+  formSelect1Label.innerText = 'Project';
   const formSelectInner1 = document.createElement('select');
   formSelectInner1.className = 'form-select project-select w-100 py-1';
   formSelectInner1.setAttribute('aria-label', 'Default select example');
-  const DefaultProjectOption = document.createElement('option');
-  DefaultProjectOption.innerText = 'Project';
-  formSelectInner1.appendChild(DefaultProjectOption);
   projects.forEach((project) => {
     if (projects !== []) {
       const ProjectOption = document.createElement('option');
@@ -51,15 +60,16 @@ export function createTodoPopup(projects) {
       formSelectInner1.appendChild(ProjectOption);
     }
   });
+  formSelect1.appendChild(formSelect1Label);
   formSelect1.appendChild(formSelectInner1);
 
   const formSelect2 = document.createElement('div');
   formSelect2.className = 'mb-3';
+  const formSelect2Label = document.createElement('label');
+  formSelect2Label.innerText = 'Priority';
   const formSelectInner2 = document.createElement('select');
   formSelectInner2.className = 'form-select priority-select w-100 py-1';
   formSelectInner2.setAttribute('aria-label', 'Default select example');
-  const DefaultPriorityOption = document.createElement('option');
-  DefaultPriorityOption.innerText = 'Priority';
 
   const PriorityOption1 = document.createElement('option');
   PriorityOption1.innerText = 'Important';
@@ -69,10 +79,11 @@ export function createTodoPopup(projects) {
 
   const PriorityOption3 = document.createElement('option');
   PriorityOption3.innerText = 'Normal';
-  formSelectInner2.appendChild(DefaultPriorityOption);
+
   formSelectInner2.appendChild(PriorityOption1);
   formSelectInner2.appendChild(PriorityOption2);
   formSelectInner2.appendChild(PriorityOption3);
+  formSelect2.appendChild(formSelect2Label);
   formSelect2.appendChild(formSelectInner2);
 
 
@@ -84,7 +95,7 @@ export function createTodoPopup(projects) {
   todoSubmitBtn.innerText = 'Submit';
 
   const todoCancelBtn = document.createElement('button');
-  todoCancelBtn.className = 'btn btn-primary todo-cancel';
+  todoCancelBtn.className = 'btn ml-2 btn-danger todo-cancel';
   todoCancelBtn.innerText = 'Cancel';
 
   todoActionBtns.appendChild(todoSubmitBtn);
@@ -101,12 +112,7 @@ export function createTodoPopup(projects) {
   body.prepend(hoveringPopup);
 }
 
-export function removeTodoPopup() {
-  const popup = document.querySelector('.hovering-popup-container');
-  popup.parentNode.removeChild(popup);
-}
-
-export function addPopupListeners() {
+function addTodoPopupListeners() {
   const todoActionBtns = document.querySelector('.todo-action-btns');
   todoActionBtns.addEventListener('click', (e) => {
     const elMain = document.querySelector('main');
@@ -122,14 +128,15 @@ export function addPopupListeners() {
           }
         }
       };
-      const newTodo = createTodo(getProject(todoProjectSelect.value, projects), todoTitle.value, '', todoDate.value, todoPrioritySelect.value);
-      removeTodoPopup();
+      createTodo(getProject(todoProjectSelect.value, projects), todoTitle.value, '', todoDate.value, todoPrioritySelect.value);
+      removePopup();
       elMain.classList.remove('dimmed');
       showProjectTodo(getProject(todoProjectSelect.value, projects));
+      showProjects();
       const newElement = todoActionBtns.cloneNode(true);
       todoActionBtns.parentNode.replaceChild(newElement, todoActionBtns);
     } else if (e.target.classList.contains('todo-cancel')) {
-      removeTodoPopup();
+      removePopup();
       elMain.classList.remove('dimmed');
       const newElement = todoActionBtns.cloneNode(true);
       todoActionBtns.parentNode.replaceChild(newElement, todoActionBtns);
@@ -142,7 +149,91 @@ export function TodoHover() {
   createTodoBtn.addEventListener('click', () => {
     if (!document.querySelector('.hovering-popup-container')) {
       createTodoPopup(projects);
-      addPopupListeners();
+      addTodoPopupListeners();
+      const elMain = document.querySelector('main');
+      elMain.classList.add('dimmed');
+    }
+  });
+}
+
+//
+// project popup
+
+function createProjectPopup() {
+  const body = document.querySelector('body');
+  const hoveringPopup = document.createElement('div');
+  hoveringPopup.className = 'hovering-popup-container p-5 d-flex';
+  const hover = document.createElement('div');
+  hover.className = 'hover d-flex align-items-center  shadow p-5';
+  const projectForm = document.createElement('form');
+  projectForm.className = 'd-flex justify-items-center w-100 flex-column h-100 project-form';
+
+  const formInput = document.createElement('div');
+  formInput.className = 'mb-3 ';
+  const projectInputLabel = document.createElement('label');
+  projectInputLabel.className = 'form-label';
+  projectInputLabel.innerHTML = 'Project Title';
+  projectInputLabel.setAttribute('for', 'project-input');
+  const projectInput = document.createElement('input');
+  projectInput.className = 'form-control';
+  projectInput.type = 'text';
+  projectInput.id = 'project-input';
+  formInput.appendChild(projectInputLabel);
+  formInput.appendChild(projectInput);
+
+
+  const projectActionBtns = document.createElement('div');
+  projectActionBtns.className = 'text-center project-action-btns';
+  const projectSubmitBtn = document.createElement('button');
+  projectSubmitBtn.type = 'submit';
+  projectSubmitBtn.className = 'btn btn-primary project-submit';
+  projectSubmitBtn.innerText = 'Submit';
+
+  const projectCancelBtn = document.createElement('button');
+  projectCancelBtn.className = 'btn ml-2 btn-danger project-cancel';
+  projectCancelBtn.innerText = 'Cancel';
+
+  projectActionBtns.appendChild(projectSubmitBtn);
+
+  projectActionBtns.appendChild(projectCancelBtn);
+
+  projectForm.appendChild(formInput);
+  projectForm.appendChild(projectActionBtns);
+  hover.appendChild(projectForm);
+  hoveringPopup.appendChild(hover);
+  body.prepend(hoveringPopup);
+}
+
+
+function addProjectPopupListeners() {
+  const projectActionBtns = document.querySelector('.project-action-btns');
+  projectActionBtns.addEventListener('click', (e) => {
+    const elMain = document.querySelector('main');
+    if (e.target.classList.contains('project-submit')) {
+      const projectTitle = document.querySelector('.hover form #project-input');
+      createProject(projectTitle.value, projects);
+      removePopup();
+      elMain.classList.remove('dimmed');
+
+      showProjects();
+      const newElement = projectActionBtns.cloneNode(true);
+      projectActionBtns.parentNode.replaceChild(newElement, projectActionBtns);
+    } else if (e.target.classList.contains('project-cancel')) {
+      removePopup();
+      elMain.classList.remove('dimmed');
+      const newElement = projectActionBtns.cloneNode(true);
+      projectActionBtns.parentNode.replaceChild(newElement, projectActionBtns);
+    }
+  });
+}
+
+
+export function ProjectHover() {
+  const createProjectBtn = document.querySelector('.project-button');
+  createProjectBtn.addEventListener('click', () => {
+    if (!document.querySelector('.hovering-popup-container')) {
+      createProjectPopup();
+      addProjectPopupListeners();
       const elMain = document.querySelector('main');
       elMain.classList.add('dimmed');
     }

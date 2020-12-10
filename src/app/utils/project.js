@@ -5,12 +5,17 @@ export default class Project {
     this.projectStore = [];
   }
 }
+if (localStorage.getItem('Projects') === null) {
+  localStorage.setItem('Projects', JSON.stringify([]));
+}
 
-export const projects = [];
+export const projects = JSON.parse(localStorage.getItem('Projects'));
+
 
 export const createProject = (name, projects) => {
   const newProject = new Project(name);
   projects.push(newProject);
+  localStorage.setItem('Projects', JSON.stringify(projects));
   return newProject;
 };
 
@@ -26,8 +31,11 @@ export const showProjectTodo = (project) => {
     todoLeft.className = 'todo-left';
     const todoCheck = document.createElement('input');
     todoCheck.type = 'checkbox';
+    if (todo.checked === true) {
+      todoCheck.checked = true;
+      newTodo.classList.add('done');
+    }
     todoCheck.name = 'todo';
-    // todoCheck.addEventListener('check');
     const todoTitle = document.createElement('span');
     todoTitle.className = 'ml-2 p-0';
     todoTitle.innerText = todo.title;
@@ -55,8 +63,16 @@ export const showProjectTodo = (project) => {
       if (e.target.classList.contains('edit-btn')) {
         todo.todoEdit(project, todo);
       } else if (e.target.classList.contains('delete-btn')) {
-        todo.todoDelete(project, todo);
+        todo.todoDelete(project);
         showProjectTodo(project);
+      } else if (e.target.type === 'checkbox') {
+        if (todo.checked === false) {
+          todo.checked = true;
+          newTodo.classList.add('done');
+        } else {
+          todo.checked = false;
+          newTodo.classList.remove('done');
+        }
       }
     });
 
@@ -67,18 +83,19 @@ export const showProjectTodo = (project) => {
 
 export const showProjects = () => {
   const projectDisplay = document.querySelector('.project-display');
+  projectDisplay.innerHTML = '';
   projects.forEach((project) => {
     const newProject = document.createElement('a');
     newProject.href = '#';
     newProject.className = 'list-group-item list-group-item-action py-4 project h4';
 
     const projectContent = document.createElement('span');
-    projectContent.className = 'project-content';
-    projectContent.innerText = project.name;
+    projectContent.className = 'project-content h5';
+    projectContent.innerText = project.name.charAt(0).toUpperCase() + project.name.slice(1);
 
     const projectElements = document.createElement('span');
     projectElements.className = 'project-todo-number';
-    projectElements.innerText = 0;
+    projectElements.innerText = project.projectStore.length;
 
     newProject.appendChild(projectContent);
     newProject.appendChild(projectElements);
@@ -87,4 +104,8 @@ export const showProjects = () => {
     });
     projectDisplay.prepend(newProject);
   });
+  const projectBtn = document.createElement('button');
+  projectBtn.className = 'btn btn-primary btn-lg py-4 project-button';
+  projectBtn.innerText = 'Create a Project';
+  projectDisplay.appendChild(projectBtn);
 };

@@ -1,8 +1,31 @@
 @import "~bootstrap/scss/bootstrap";
 
+.body {
+  transition: all 0.4s ease-in-out;
+}
+
 .main {
   position: relative;
   transition: 1s ease-in;
+}
+
+.project-form {
+  height: 100%;
+}
+
+.project {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .project-todo-number {
+    background-color: black;
+    font-size: 15px;
+    width: 18px;
+    text-align: center;
+    border-radius: 50%;
+    color: white;
+  }
 }
 
 .dimmed {
@@ -33,7 +56,7 @@
 
   .todo-right {
     .fas {
-      background-color: white;
+      background-color: inherit;
       border: none;
       padding: 0 2px;
     }
@@ -55,8 +78,13 @@
 
   .hover {
     width: 500px;
-    height: 400px;
+    min-height: 400px;
     background-color: rgb(233, 233, 233);
     border-radius: 15px;
   }
+}
+
+.done {
+  text-decoration: line-through;
+  background-color: rgb(83, 83, 83);
 }
