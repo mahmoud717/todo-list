@@ -1,3 +1,4 @@
+import { todoChecked, todoDeleted, todoEdit } from './todo';
 
 export default class Project {
   constructor(name) {
@@ -25,6 +26,7 @@ export const showProjectTodo = (project) => {
   const todoDisplay = document.querySelector('.todo-display');
   todoDisplay.innerHTML = '';
   project.projectStore.forEach((todo) => {
+    console.log(todo);
     const newTodo = document.createElement('div');
     newTodo.className = 'todo d-flex justify-content-between p-2';
     const todoLeft = document.createElement('div');
@@ -61,16 +63,16 @@ export const showProjectTodo = (project) => {
 
     newTodo.addEventListener('click', (e) => {
       if (e.target.classList.contains('edit-btn')) {
-        todo.todoEdit(project, todo);
+        todoEdit(project, todo);
       } else if (e.target.classList.contains('delete-btn')) {
-        todo.todoDelete(project);
+        todoDeleted(todo, project);
         showProjectTodo(project);
       } else if (e.target.type === 'checkbox') {
         if (todo.checked === false) {
-          todo.checked = true;
+          todoChecked(todo, true);
           newTodo.classList.add('done');
         } else {
-          todo.checked = false;
+          todoChecked(todo, false);
           newTodo.classList.remove('done');
         }
       }
