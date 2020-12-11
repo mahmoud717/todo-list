@@ -27,8 +27,3 @@ export const todoChecked = (todo, state) => {
   todo.checked = state;
   localStorage.setItem('Projects', JSON.stringify(projects));
 };
-
-
-export const todoEdited = (newTodo) => {
-
-};

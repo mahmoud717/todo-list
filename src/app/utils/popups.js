@@ -134,6 +134,7 @@ function addTodoPopupListeners() {
       const todoDate = document.querySelector('.hover form #due-date-input');
       const todoProjectSelect = document.querySelector('.hover form .project-select');
       const todoPrioritySelect = document.querySelector('.hover form .priority-select');
+      // eslint-disable-next-line consistent-return
       const getProject = (projectSelect, projects) => {
         for (let i = 0; i < projects.length; i += 1) {
           if (projects[i].name === projectSelect) {

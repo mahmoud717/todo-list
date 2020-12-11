@@ -9,6 +9,10 @@
 
 - Guests can create lists of todos, add/delete todos based on their priority, due date and title.
 - The app is currently not mobile responsive.
+- Todos with important priorities are colored dark red.
+- Todos with high priorities are colored light red.
+- Todos with normal priorities are colored green.
+- Done todos are colored grey.
 
 ## Built With
 
