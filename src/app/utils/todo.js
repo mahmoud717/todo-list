@@ -1,4 +1,6 @@
-import { projects, showProjects } from './project';
+/* eslint-disable import/no-cycle */
+import { projects } from './project';
+import { showProjects } from './data';
 
 class Todo {
   constructor(title, description, dueDate, priority) {
@@ -12,7 +14,6 @@ class Todo {
 export default (project, title, description, dueDate, priority) => {
   const todo = new Todo(title, description, dueDate, priority);
   project.projectStore.push(todo);
-
   localStorage.setItem('Projects', JSON.stringify(projects));
   return todo;
 };
@@ -28,6 +29,6 @@ export const todoChecked = (todo, state) => {
 };
 
 
-export const todoEventListeners = (newTodo) => {
+export const todoEdited = (newTodo) => {
 
 };

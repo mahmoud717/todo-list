@@ -1,6 +1,8 @@
+/* eslint-disable import/no-cycle */
 import {
-  projects, showProjectTodo, showProjects, createProject,
-} from './project';
+  showProjectTodo, showProjects,
+} from './data';
+import { projects, createProject } from './project';
 import createTodo from './todo';
 
 function removePopup() {
@@ -11,7 +13,7 @@ function removePopup() {
 // todo popup
 
 
-function createTodoPopup(projects) {
+function createTodoPopup(projects, title = '', DueDate = '', priority = null, projectSelected = null) {
   const body = document.querySelector('body');
   const hoveringPopup = document.createElement('div');
   hoveringPopup.className = 'hovering-popup-container p-5 d-flex';
@@ -26,10 +28,12 @@ function createTodoPopup(projects) {
   todoInputLabel.className = 'form-label';
   todoInputLabel.innerHTML = 'Todo Title';
   todoInputLabel.setAttribute('for', 'todo-input');
+
   const todoInput = document.createElement('input');
   todoInput.className = 'form-control';
   todoInput.type = 'text';
   todoInput.id = 'todo-input';
+  todoInput.value = title;
   formInput1.appendChild(todoInputLabel);
   formInput1.appendChild(todoInput);
 
@@ -43,6 +47,7 @@ function createTodoPopup(projects) {
   todoDate.className = 'form-control';
   todoDate.type = 'date';
   todoDate.id = 'due-date-input';
+  todoDate.value = DueDate;
   formInput2.appendChild(todoDateLabel);
   formInput2.appendChild(todoDate);
 
@@ -53,11 +58,13 @@ function createTodoPopup(projects) {
   const formSelectInner1 = document.createElement('select');
   formSelectInner1.className = 'form-select project-select w-100 py-1';
   formSelectInner1.setAttribute('aria-label', 'Default select example');
-  projects.forEach((project) => {
+  projects.forEach((Project, index) => {
     if (projects !== []) {
       const ProjectOption = document.createElement('option');
-      ProjectOption.innerText = project.name;
-      formSelectInner1.appendChild(ProjectOption);
+      ProjectOption.innerText = Project.name;
+      if (Project.innerText === projectSelected) {
+        formSelectInner1.selectedIndex = index;
+      }formSelectInner1.appendChild(ProjectOption);
     }
   });
   formSelect1.appendChild(formSelect1Label);
@@ -73,13 +80,19 @@ function createTodoPopup(projects) {
 
   const PriorityOption1 = document.createElement('option');
   PriorityOption1.innerText = 'Important';
-
+  if (priority === 'Important') {
+    formSelectInner2.selectedIndex = 1;
+  }
   const PriorityOption2 = document.createElement('option');
   PriorityOption2.innerText = 'High';
-
+  if (priority === 'High') {
+    formSelectInner2.selectedIndex = 1;
+  }
   const PriorityOption3 = document.createElement('option');
   PriorityOption3.innerText = 'Normal';
-
+  if (priority === 'Normal') {
+    formSelectInner2.selectedIndex = 1;
+  }
   formSelectInner2.appendChild(PriorityOption1);
   formSelectInner2.appendChild(PriorityOption2);
   formSelectInner2.appendChild(PriorityOption3);

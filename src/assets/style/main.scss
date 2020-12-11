@@ -9,6 +9,18 @@
   transition: 1s ease-in;
 }
 
+.important {
+  background-color: rgba(255, 0, 0, 0.925);
+}
+
+.high {
+  background-color: rgba(248, 69, 69, 0.685);
+}
+
+.normal {
+  background-color: rgba(125, 233, 62, 0.842);
+}
+
 .project-form {
   height: 100%;
 }
@@ -19,7 +31,7 @@
   align-items: center;
 
   .project-todo-number {
-    background-color: black;
+    background-color: rgb(68, 61, 61);
     font-size: 15px;
     width: 18px;
     text-align: center;

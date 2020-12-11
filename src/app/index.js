@@ -1,7 +1,10 @@
 import '../assets/style/main.scss';
 import { loadDefault } from './utils/default';
 import createTodo from './utils/todo';
-import { createProject, projects, showProjects } from './utils/project';
+import { createProject, projects } from './utils/project';
+import {
+  showProjects, showProjectTodo,
+} from './utils/data';
 import { ProjectHover, TodoHover } from './utils/popups';
 
 
@@ -17,4 +20,5 @@ if (JSON.parse(localStorage.getItem('Projects')).length === 0) {
 
 
 showProjects();
+showProjectTodo(projects[(0)]);
 ProjectHover();
