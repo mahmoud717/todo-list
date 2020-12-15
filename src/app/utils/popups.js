@@ -1,9 +1,15 @@
 /* eslint-disable import/no-cycle */
-import {
-  showProjectTodo, showProjects,
-} from './data';
-import { projects, createProject } from './project';
-import createTodo from './todo';
+// import {
+//   showProjectTodo, showProjects,
+// } from './data';
+// import { projects, createProject } from './project';
+// import createTodo from './todo';
+
+
+const dataFile = require('./data');
+const projectFile = require('./project');
+
+const todoFile = require('./todo');
 
 function removePopup() {
   const popup = document.querySelector('.hovering-popup-container');
@@ -142,11 +148,11 @@ function addTodoPopupListeners() {
           }
         }
       };
-      createTodo(getProject(todoProjectSelect.value, projects), todoTitle.value, '', todoDate.value, todoPrioritySelect.value);
+      todoFile.createTodo(getProject(todoProjectSelect.value, projectFile.projects), todoTitle.value, '', todoDate.value, todoPrioritySelect.value);
       removePopup();
       elMain.classList.remove('dimmed');
-      showProjectTodo(getProject(todoProjectSelect.value, projects));
-      showProjects();
+      dataFile.showProjectTodo(getProject(todoProjectSelect.value, projectFile.projects));
+      dataFile.showProjects();
       const newElement = todoActionBtns.cloneNode(true);
       todoActionBtns.parentNode.replaceChild(newElement, todoActionBtns);
     } else if (e.target.classList.contains('todo-cancel')) {
@@ -158,11 +164,11 @@ function addTodoPopupListeners() {
   });
 }
 
-export function TodoHover() {
+function TodoHover() {
   const createTodoBtn = document.querySelector('.create-todo-btn');
   createTodoBtn.addEventListener('click', () => {
     if (!document.querySelector('.hovering-popup-container')) {
-      createTodoPopup(projects);
+      createTodoPopup(projectFile.projects);
       addTodoPopupListeners();
       const elMain = document.querySelector('main');
       elMain.classList.add('dimmed');
@@ -225,11 +231,11 @@ function addProjectPopupListeners() {
     const elMain = document.querySelector('main');
     if (e.target.classList.contains('project-submit')) {
       const projectTitle = document.querySelector('.hover form #project-input');
-      createProject(projectTitle.value, projects);
+      projectFile.createProject(projectTitle.value, projectFile.projects);
       removePopup();
       elMain.classList.remove('dimmed');
 
-      showProjects();
+      dataFile.showProjects();
       const newElement = projectActionBtns.cloneNode(true);
       projectActionBtns.parentNode.replaceChild(newElement, projectActionBtns);
     } else if (e.target.classList.contains('project-cancel')) {
@@ -242,7 +248,7 @@ function addProjectPopupListeners() {
 }
 
 
-export function ProjectHover() {
+function ProjectHover() {
   const createProjectBtn = document.querySelector('.project-button');
   createProjectBtn.addEventListener('click', () => {
     if (!document.querySelector('.hovering-popup-container')) {
@@ -253,3 +259,5 @@ export function ProjectHover() {
     }
   });
 }
+module.exports.ProjectHover = ProjectHover;
+module.exports.TodoHover = TodoHover;

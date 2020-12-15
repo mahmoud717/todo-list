@@ -1,3 +1,4 @@
+/* eslint-disable object-shorthand */
 class Project {
   constructor(name) {
     this.name = name;
@@ -7,13 +8,14 @@ class Project {
 if (localStorage.getItem('Projects') === null) {
   localStorage.setItem('Projects', JSON.stringify([]));
 }
+const projects = JSON.parse(localStorage.getItem('Projects'));
 
-export const projects = JSON.parse(localStorage.getItem('Projects'));
 
-
-export const createProject = (name, projects) => {
+function createProject(name, projects) {
   const newProject = new Project(name);
   projects.push(newProject);
   localStorage.setItem('Projects', JSON.stringify(projects));
   return newProject;
-};
+}
+
+module.exports = { projects: projects, createProject: createProject };

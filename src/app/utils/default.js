@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/prefer-default-export
-export const loadDefault = () => {
+const loadDefault = () => {
   // create side bar
   const elMain = document.querySelector('main');
   const sideBar = document.createElement('div');
@@ -65,3 +65,4 @@ export const loadDefault = () => {
 
   elMain.appendChild(appContainer);
 };
+module.exports.loadDefault = loadDefault;

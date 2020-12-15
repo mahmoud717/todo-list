@@ -1,6 +1,8 @@
 /* eslint-disable import/no-cycle */
-import { projects } from './project';
-import { showProjects } from './data';
+// import { projects } from './project';
+// import { showProjects } from './data';
+const projectFile = require('./project');
+const dataFile = require('./data');
 
 class Todo {
   constructor(title, description, dueDate, priority) {
@@ -11,19 +13,23 @@ class Todo {
     this.checked = false;
   }
 }
-export default (project, title, description, dueDate, priority) => {
+const createTodo = (project, title, description, dueDate, priority) => {
   const todo = new Todo(title, description, dueDate, priority);
   project.projectStore.push(todo);
-  localStorage.setItem('Projects', JSON.stringify(projects));
+  localStorage.setItem('Projects', JSON.stringify(projectFile.projects));
   return todo;
 };
-export const todoDeleted = (todo, project) => {
+const todoDeleted = (todo, project) => {
   project.projectStore.splice((project.projectStore.indexOf(todo)), 1);
-  localStorage.setItem('Projects', JSON.stringify(projects));
-  showProjects();
+  localStorage.setItem('Projects', JSON.stringify(projectFile.projects));
+  dataFile.showProjects();
 };
 
-export const todoChecked = (todo, state) => {
+const todoChecked = (todo, state) => {
   todo.checked = state;
-  localStorage.setItem('Projects', JSON.stringify(projects));
+  localStorage.setItem('Projects', JSON.stringify(projectFile.projects));
 };
+
+module.exports.createTodo = createTodo;
+module.exports.todoDeleted = todoDeleted;
+module.exports.todoChecked = todoChecked;
