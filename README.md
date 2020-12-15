@@ -26,7 +26,7 @@
 
 ## live link
 
-<https://mahmoud717.github.io/todo-list/>
+[To-Do List live link](https://mahmoud717.github.io/todo-list)
 
 To get this project up and running locally, you must have [node](https://nodejs.org/en/) installed locally. Node will automatically install [npm](https://www.npmjs.com/).
 
@@ -47,6 +47,13 @@ Run `npm install` to install the npm packages from the `package.json` file.<br>
 Run `npm run start` to start the webpack server, you can now navigate to `http://localhost:3000` to view the app. The server refreshes the app every time you make a change to a file used by it.<br>
 **Step 5**<br>
 Most important, enjoy the app!<br>
+
+### Test
+
+- Run `npm run test` command:
+
+`$ npm run test`
+
 
 ## Authors
 
