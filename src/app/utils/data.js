@@ -1,9 +1,15 @@
 /* eslint-disable import/no-cycle */
-import { ProjectHover } from './popups';
-import { todoChecked, todoDeleted } from './todo';
-import { projects } from './project';
+// import { ProjectHover } from './popups';
+// import { todoChecked, todoDeleted } from './todo';
+// import { projects } from './project';
 
-export const showProjectTodo = (project) => {
+const popupsFile = require('./popups');
+
+const todoFile = require('./todo');
+
+const projectFile = require('./project');
+
+const showProjectTodo = (project) => {
   const todoProjectName = document.querySelector('.todo-project-name');
   todoProjectName.innerText = project.name.charAt(0).toUpperCase() + project.name.slice(1);
   const todoDisplay = document.querySelector('.todo-display');
@@ -50,14 +56,14 @@ export const showProjectTodo = (project) => {
 
     newTodo.addEventListener('click', (e) => {
       if (e.target.classList.contains('delete-btn')) {
-        todoDeleted(todo, project);
+        todoFile.todoDeleted(todo, project);
         showProjectTodo(project);
       } else if (e.target.type === 'checkbox') {
         if (todo.checked === false) {
-          todoChecked(todo, true);
+          todoFile.todoChecked(todo, true);
           newTodo.classList.add('done');
         } else {
-          todoChecked(todo, false);
+          todoFile.todoChecked(todo, false);
           newTodo.classList.remove('done');
         }
       }
@@ -68,10 +74,10 @@ export const showProjectTodo = (project) => {
 };
 
 
-export const showProjects = () => {
+const showProjects = () => {
   const projectDisplay = document.querySelector('.project-display');
   projectDisplay.innerHTML = '';
-  projects.forEach((project) => {
+  projectFile.projects.forEach((project) => {
     const newProject = document.createElement('a');
     newProject.href = '#';
     newProject.className = 'list-group-item list-group-item-action py-4 project h4';
@@ -95,5 +101,8 @@ export const showProjects = () => {
   projectBtn.className = 'btn btn-primary btn-lg py-4 project-button';
   projectBtn.innerText = 'Create a Project';
   projectDisplay.appendChild(projectBtn);
-  ProjectHover();
+  popupsFile.ProjectHover();
 };
+
+module.exports.showProjects = showProjects;
+module.exports.showProjectTodo = showProjectTodo;
